@@ -9,6 +9,12 @@ import rp.robotics.mapping.RPLineMap;
 import rp.robotics.visualisation.GridMapVisualisation;
 import rp.robotics.visualisation.KillMeNow;
 
+/**
+ * Used to test that our implementation of IGridMap works with the simulation.
+ * 
+ * @author Thomas Clarke, Rowan Cole, Kyle Allen-Taylor
+ *
+ */
 public class GridMapViewer {
 
 	/***
