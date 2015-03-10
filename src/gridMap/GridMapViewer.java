@@ -9,12 +9,6 @@ import rp.robotics.mapping.RPLineMap;
 import rp.robotics.visualisation.GridMapVisualisation;
 import rp.robotics.visualisation.KillMeNow;
 
-/**
- * Used to test that our implementation of IGridMap works with the simulation.
- * 
- * @author Thomas Clarke, Rowan Cole, Kyle Allen-Taylor
- *
- */
 public class GridMapViewer {
 
 	/***
@@ -45,16 +39,16 @@ public class GridMapViewer {
 	public void run() {
 		JFrame frame = new JFrame("Map Viewer");
 		frame.addWindowListener(new KillMeNow());
-		RPLineMap lineMap = MapUtils.create2014Map2();
+		RPLineMap lineMap = MapUtils.create2015Map1();
 
 		// grid map dimensions for this line map
-		int xJunctions = 10;
-		int yJunctions = 7;
+		int xJunctions = 14;
+		int yJunctions = 8;
 		float junctionSeparation = 30;
 
 		// position of grid map 0,0
-		int xInset = 14;
-		int yInset = 31;
+		int xInset = 15;
+		int yInset = 15;
 
 		IGridMap gridMap = createGridMap(lineMap, xJunctions, yJunctions,
 				xInset, yInset, junctionSeparation);
