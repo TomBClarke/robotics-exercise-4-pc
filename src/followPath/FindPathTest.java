@@ -1,11 +1,16 @@
 package followPath;
 
 import ilist.IList;
+
 import java.util.Random;
+
 import gridMap.GridMap;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import robotSearches.Coordinate;
+import robotSearches.IQueueContainer;
 import robotSearches.Node;
 import rp.robotics.mapping.IGridMap;
 import rp.robotics.mapping.MapUtils;
@@ -19,9 +24,9 @@ import rp.robotics.mapping.RPLineMap;
  */
 public class FindPathTest {
 	
-  @Test
-  public void getPath() {
-	  RPLineMap lineMap = MapUtils.create2015Map1();
+	@Test
+  	public void getPath() {
+	  	RPLineMap lineMap = MapUtils.create2015Map1();
 		int xJunctions = 14;
 		int yJunctions = 8;
 		float junctionSeparation = 30;
@@ -45,28 +50,30 @@ public class FindPathTest {
 			int finishingX = random.nextInt(12);
 			int finishingY = random.nextInt(8);
 			
-			while(gridMap.isObstructed(startingX, startingY)) {
+			while(gridMap.isObstructed(finishingX, finishingY)) {
 				finishingX = random.nextInt(12);
 				finishingY = random.nextInt(8);
-			}
-		  
-			IList<Node<Coordinate>> path = find.getPath(new Coordinate(startingX, startingY), new Coordinate(finishingX, finishingY));
+			}		  
+			
+			IQueueContainer<Coordinate> frontier = new QueueContainer<Coordinate>();
+			IList<Node<Coordinate>> path = find.getPath(new Coordinate(startingX, startingY), new Coordinate(finishingX, finishingY), frontier);
 			Node<Coordinate> head = path.head();
 			path = path.tail();
 			Node<Coordinate> next = path.head();
 			
 			Assert.assertEquals(gridMap.isValidTransition(head.contents().x(),head.contents().y(), next.contents().x(), next.contents().y()), true);
 			
-			while (path.size() > 1) {
+			while (path.size() > 0) {
 				head = next;
 				next = path.head();
-				path = path.tail();
 				
-				if(path.size() == 2) {
-					Assert.assertEquals((finishingX==next.contents().x() && finishingY==next.contents().y()), true);
+				if(path.size() == 1) {
+					Assert.assertEquals((finishingX == next.contents().x() && finishingY == next.contents().y()), true);
 				}
 				
 				Assert.assertEquals(gridMap.isValidTransition(head.contents().x(),head.contents().y(), next.contents().x(), next.contents().y()), true);
+
+				path = path.tail();
 			}		  
 		}	  
   	}  
